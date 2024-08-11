@@ -5,21 +5,30 @@ import numpy as np
 
 def plot_ej1a(filename):
     df = pd.read_csv(filename)
-    fig, ax = plt.subplots()
     pokemons = df['Pokemon']
     balls = {
-        'Pokeball Probability': df['Pokeball Prob'],
-        'Heavyball Probability': df['Heavyball Prob'],
-        'Fastball Probability': df['Fastball Prob'],
-        'Ultraball Probability': df['Ultraball Prob'],
+        'Pokeball': df['Pokeball Prob'],
+        'Heavyball': df['Heavyball Prob'],
+        'Fastball': df['Fastball Prob'],
+        'Ultraball': df['Ultraball Prob'],
     }
+
     x = np.arange(len(pokemons))
-    width = 1
+    width = 0.2
     multiplier = 0
-    for label, data in balls.items():
+
+    fig, ax = plt.subplots(layout='constrained')
+
+    for attribute, measurement in balls.items():
         offset = width * multiplier
-        rects = ax.bar(x + offset, data, width, label=label)
+        rects = ax.bar(x + offset, measurement, width, label=attribute)
         ax.bar_label(rects, padding=4)
         multiplier += 1
+
+    ax.set_ylabel('Probabilidad de captura')
+    ax.set_xticks(x + 1.5 * width, pokemons.map(lambda x: x.capitalize()))
+    ax.legend(loc='upper left', ncols=4)
+    ax.set_ylim(0, 1)
+    ax.set_yticks(np.arange(0, 1.1, 0.1)) 
 
     plt.show()
