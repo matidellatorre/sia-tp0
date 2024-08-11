@@ -1,0 +1,22 @@
+[
+  {
+  "pokemon": "jolteon",
+  "pokeball": ["pokeball", "ultraball", "fastball", "heavyball"]
+  },
+  {
+  "pokemon": "caterpie",
+  "pokeball": ["pokeball", "ultraball", "fastball", "heavyball"]
+  },
+  {
+  "pokemon": "snorlax",
+  "pokeball": ["pokeball", "ultraball", "fastball", "heavyball"]
+  },
+  {
+  "pokemon": "onix",
+  "pokeball": ["pokeball", "ultraball", "fastball", "heavyball"]
+  },
+  {
+  "pokemon": "mewtwo",
+  "pokeball": ["pokeball", "ultraball", "fastball", "heavyball"]
+  }
+]
