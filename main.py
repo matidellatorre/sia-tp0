@@ -5,9 +5,12 @@ import csv
 from src.catching import attempt_catch
 from src.pokemon import PokemonFactory, StatusEffect
 from src.plots import *
+import numpy as np
 
 FILENAME_EJ2D = 'ej2d.csv'
 FILENAME_EJ1 = "results/ej1.csv"
+FILENAME_EJ1A = 'ej1a.csv'
+FILENAME_EJ2A = 'ej2a.csv'
 
 
 def ej1(ball_throws=100):
@@ -29,6 +32,30 @@ def ej1(ball_throws=100):
 
             writer.writerow([pokemon["pokemon"], *probs])
 
+def ej2a():
+
+    factory = PokemonFactory("pokemon.json")
+
+    with open(f"{sys.argv[1]}", "r") as f, open(FILENAME_EJ2A, mode='w', newline='') as output:
+        config = json.load(f)
+        writer = csv.writer(output)
+        balls = config["pokeballs"]
+        catch_rate_names = list(map(lambda x : 'catch_rate_'+x, balls))
+        writer.writerow(['hp', *catch_rate_names ])
+        
+        hp_values = np.arange(0.01, 1.01, 0.01)
+        for hp in hp_values:
+            pokemon = factory.create(config["pokemon"], 100, StatusEffect.NONE, hp) #TODO: Change to pokemon in pokemon variable
+            catched_rates_list = []
+            for ball in balls:
+                accumulated = 0
+                for i in range(100):
+                    catched, _prob = attempt_catch(pokemon, ball)
+                    if catched:
+                        accumulated += 1
+                catched_rates_list.append(accumulated/100)
+            
+            writer.writerow([hp, *catched_rates_list])
 
 def ej2d():
     factory = PokemonFactory("pokemon.json")

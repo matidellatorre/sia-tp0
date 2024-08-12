@@ -2,6 +2,8 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 
+DATASET_QTY = 100
+
 
 def plot_ej1a(filename):
     df = pd.read_csv(filename)
@@ -67,4 +69,33 @@ def plot_ej1b(filename):
         axis.set_xticks([])
         
     fig.delaxes(ax[1, 2])
+    
+def plot_ej2a(filename):
+    df = pd.read_csv(filename)
+    catch_rates_pokeball = df['catch_rate_pokeball']
+    catch_rate_ultraball = df['catch_rate_ultraball']
+    catch_rate_fastball = df['catch_rate_fastball']
+    catch_rate_heavyball = df['catch_rate_heavyball']
+
+    hps = df['hp']
+    
+    
+    plt.figure(figsize=(10, 6))
+
+    plt.scatter(hps, catch_rate_fastball, color='orange', marker='s', label='Fastball')
+    plt.plot(hps, catch_rate_fastball, color='orange')
+    plt.scatter(hps, catch_rates_pokeball, color='red', marker='o', label='Pokeball')
+    plt.plot(hps, catch_rates_pokeball, color='red')
+    plt.scatter(hps, catch_rate_ultraball, color='blue', marker='x', label='Ultraball')
+    plt.plot(hps, catch_rates_pokeball, color='red')
+    plt.scatter(hps, catch_rate_heavyball, color='green', marker='+', label='Heavyball')
+    plt.plot(hps, catch_rates_pokeball, color='red')
+
+
+    plt.title('Salud vs probabilidad de captura')
+    plt.xlabel('Probabilidad de captura')
+    plt.ylabel('Salud')
+
+    plt.legend()
+
     plt.show()
