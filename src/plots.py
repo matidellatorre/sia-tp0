@@ -72,32 +72,28 @@ def plot_ej1b(filename):
     
 def plot_ej2a(filename):
     df = pd.read_csv(filename)
-    catch_rate_pokeball = df['catch_rate_pokeball']
-    catch_rate_ultraball = df['catch_rate_ultraball']
-    catch_rate_fastball = df['catch_rate_fastball']
-    catch_rate_heavyball = df['catch_rate_heavyball']
+    fig, ax = plt.subplots(figsize=(10, 6))
+    x = np.arange(len(df['ball'])-1)
 
-    hps = df['hp']
+    width = 0.15
     
+    def normalize(s):
+        return s[1:].div(s[0])
 
-    plt.figure(figsize=(10, 6))
-
-    plt.scatter(hps, catch_rate_pokeball, color='red', marker='o', label='Pokeball')
-    plt.plot(hps, catch_rate_pokeball, color='red')
-    plt.scatter(hps, catch_rate_fastball, color='orange', marker='s', label='Fastball')
-    plt.plot(hps, catch_rate_fastball, color='orange')
-    plt.scatter(hps, catch_rate_ultraball, color='blue', marker='x', label='Ultraball')
-    plt.plot(hps, catch_rate_ultraball, color='blue')
-    plt.scatter(hps, catch_rate_heavyball, color='green', marker='+', label='Heavyball')
-    plt.plot(hps, catch_rate_heavyball, color='green')
-
-
-    plt.title('Salud vs probabilidad de captura')
-    plt.xlabel('Probabilidad de captura')
-    plt.ylabel('Salud')
-
-    plt.legend()
-
+    ax.bar(x - 2 * width, normalize(df['NONE']), width, label='NONE', color='gray')
+    ax.bar(x - width, normalize(df["SLEEP"]), width, label='SLEEP', color='blue')
+    ax.bar(x, normalize(df['PARALYSIS']), width, label='PARALYSIS', color='yellow')
+    ax.bar(x + width, normalize(df['BURN']), width, label='BURN', color='red')
+    ax.bar(x + 2 * width, normalize(df['POISON']), width, label='POISON', color='purple')
+    ax.bar(x + 3 * width, normalize(df['FREEZE']), width, label='FREEZE', color='cyan')
+    
+    ax.axhline(y=1, color='k', linestyle='--')
+    ax.set_xlabel('Pokéball')
+    ax.set_ylabel('Probabilidad de captura (relativa a la pokeball)')
+    ax.set_title('Probabilidad de captura según el estado del Pokémon y la Pokébola')
+    ax.set_xticks(x)
+    ax.set_xticklabels(df['ball'][1:])
+    ax.legend()
     plt.show()
 
 def plot_ej2b(filename):

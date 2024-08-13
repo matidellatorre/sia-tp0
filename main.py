@@ -9,8 +9,8 @@ import numpy as np
 
 FILENAME_EJ2D = 'ej2d.csv'
 FILENAME_EJ1 = "results/ej1.csv"
-FILENAME_EJ1A = 'ej1a.csv'
-FILENAME_EJ2A = 'ej2a.csv'
+FILENAME_EJ1A = 'results/ej1a.csv'
+FILENAME_EJ2A = 'results/ej2a.csv'
 FILENAME_EJ2B = 'results/ej2b.csv'
 FILENAME_EJ2C = 'results/ej2c.csv'
 
@@ -64,7 +64,6 @@ def ej2a():
             probs = []
             for status_effect in config["status_effects"]:
                 pokemon = get_pokemon_by_status_effect(factory, config, status_effect)
-                accumulated = 0
                 catched, prob = attempt_catch(pokemon, ball)
                 probs.append(prob)
             writer.writerow([ball, *probs])       
@@ -148,7 +147,7 @@ if __name__ == "__main__":
     # plot_ej1b(FILENAME_EJ1)
 
     ej2a()
-    # plot_ej2a(FILENAME_EJ1A)
+    plot_ej2a(FILENAME_EJ2A)
     # plot_ej2b(FILENAME_EJ2D)
 
     # ej2b()
