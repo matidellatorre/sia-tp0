@@ -1,0 +1,5 @@
+{
+	"pokemon": "caterpie",
+	"status_effects": ["NONE", "SLEEP", "PARALYSIS", "BURN", "POISON", "FREEZE"],
+	"pokeball": ["pokeball", "ultraball", "fastball", "heavyball"]
+}

@@ -111,13 +111,13 @@ def plot_ej2b(filename):
     
     plt.figure(figsize=(10, 6))
 
-    plt.scatter(hps, catch_rate_pokeball, color='red', marker='o', label='Pokeball')
+    plt.scatter(hps, catch_rate_pokeball, color='red', label='Pokeball')
     plt.plot(hps, catch_rate_pokeball, color='red')
-    plt.scatter(hps, catch_rate_fastball, color='orange', marker='s', label='Fastball')
+    plt.scatter(hps, catch_rate_fastball, color='orange', label='Fastball')
     plt.plot(hps, catch_rate_fastball, color='orange')
-    plt.scatter(hps, catch_rate_ultraball, color='blue', marker='x', label='Ultraball')
+    plt.scatter(hps, catch_rate_ultraball, color='blue', label='Ultraball')
     plt.plot(hps, catch_rate_ultraball, color='blue')
-    plt.scatter(hps, catch_rate_heavyball, color='green', marker='+', label='Heavyball')
+    plt.scatter(hps, catch_rate_heavyball, color='green',label='Heavyball')
     plt.plot(hps, catch_rate_heavyball, color='green')
 
     plt.title('Salud vs P. de captura')

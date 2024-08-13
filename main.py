@@ -32,32 +32,42 @@ def ej1(ball_throws=100):
                         accumulated += 1
                 probs.append(accumulated / ball_throws)
 
-            writer.writerow([pokemon["pokemon"], *probs])
+            writer.writerow([pokemon["pokemon"], *probs])  
+
+def get_pokemon_by_status_effect(factory, config, status_effect):
+    match status_effect:
+        case 'NONE':
+            return factory.create(config["pokemon"], 100, StatusEffect.NONE, 1)
+        case 'FREEZE':
+            return factory.create(config["pokemon"], 100, StatusEffect.FREEZE, 1)
+        case 'POISON':
+            return factory.create(config["pokemon"], 100, StatusEffect.POISON, 1)
+        case 'BURN':
+            return factory.create(config["pokemon"], 100, StatusEffect.BURN, 1)
+        case 'PARALYSIS':
+            return factory.create(config["pokemon"], 100, StatusEffect.PARALYSIS, 1)
+        case 'SLEEP':
+            return factory.create(config["pokemon"], 100, StatusEffect.SLEEP, 1)
+        case _:
+            raise Exception(f'Unknown status effect {status_effect}')
+
 
 def ej2a():
 
     factory = PokemonFactory("pokemon.json")
-
-    with open(f"{sys.argv[1]}", "r") as f, open(FILENAME_EJ2A, mode='w', newline='') as output:
+    with open(f"{sys.argv[1]}", "r") as f, open(FILENAME_EJ2A, mode="w", newline="") as output:
         config = json.load(f)
         writer = csv.writer(output)
-        balls = config["pokeballs"]
-        catch_rate_names = list(map(lambda x : 'catch_rate_'+x, balls))
-        writer.writerow(['hp', *catch_rate_names ])
-        
-        hp_values = np.arange(0.01, 1.01, 0.01)
-        for hp in hp_values:
-            pokemon = factory.create(config["pokemon"], 100, StatusEffect.NONE, hp) #TODO: Change to pokemon in pokemon variable
-            catched_rates_list = []
-            for ball in balls:
+        writer.writerow(["ball", "NONE", "SLEEP", "PARALYSIS", "BURN", "POISON", "FREEZE"])
+
+        for ball in config["pokeball"]:
+            probs = []
+            for status_effect in config["status_effects"]:
+                pokemon = get_pokemon_by_status_effect(factory, config, status_effect)
                 accumulated = 0
-                for i in range(100):
-                    catched, _prob = attempt_catch(pokemon, ball)
-                    if catched:
-                        accumulated += 1
-                catched_rates_list.append(accumulated/100)
-            
-            writer.writerow([hp, *catched_rates_list])
+                catched, prob = attempt_catch(pokemon, ball)
+                probs.append(prob)
+            writer.writerow([ball, *probs])       
 
 def ej2b():
     factory = PokemonFactory("pokemon.json")
@@ -138,7 +148,8 @@ if __name__ == "__main__":
     # plot_ej1b(FILENAME_EJ1)
 
     ej2a()
-    plot_ej2a(FILENAME_EJ2A)
+    # plot_ej2a(FILENAME_EJ1A)
+    # plot_ej2b(FILENAME_EJ2D)
 
     # ej2b()
     # plot_ej2b(FILENAME_EJ2B)
