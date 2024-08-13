@@ -7,12 +7,12 @@ from src.pokemon import PokemonFactory, StatusEffect
 from src.plots import *
 import numpy as np
 
-FILENAME_EJ2D = 'ej2d.csv'
 FILENAME_EJ1 = "results/ej1.csv"
 FILENAME_EJ1A = 'results/ej1a.csv'
 FILENAME_EJ2A = 'results/ej2a.csv'
 FILENAME_EJ2B = 'results/ej2b.csv'
 FILENAME_EJ2C = 'results/ej2c.csv'
+FILENAME_EJ2D = 'ej2d.csv'
 
 
 def ej1(ball_throws=100):
@@ -68,6 +68,7 @@ def ej2a():
                 probs.append(prob)
             writer.writerow([ball, *probs])       
 
+
 def ej2b():
     factory = PokemonFactory("pokemon.json")
     with open(f"{sys.argv[1]}", "r") as f, open(FILENAME_EJ2B, mode='w', newline='') as output:
@@ -88,6 +89,7 @@ def ej2b():
                         accumulated += 1
                 catched_rates_list.append(accumulated/100)
             writer.writerow([hp, *catched_rates_list])
+
 
 def ej2c():
     factory = PokemonFactory("pokemon.json")
@@ -110,47 +112,50 @@ def ej2c():
                 catched_rates_list.append(accumulated/100)
             writer.writerow([lvl, *catched_rates_list])
 
+
 def ej2d():
     factory = PokemonFactory("pokemon.json")
-    with open(f"{sys.argv[1]}", "r") as f, open(FILENAME_EJ2D, mode='w', newline='') as output:
+    with open(f"{sys.argv[1]}", "r") as f, open(f"{sys.argv[1]}".split("/")[1].split(".")[0] + ".csv" , mode='w', newline='') as output:
         config = json.load(f)
         writer = csv.writer(output)
-        writer.writerow(['Status Effect', 'Pokeball Prob', 'Ultraball Prob', 'Heavyball Prob', 'Fastball Prob'])
+        writer.writerow(['Status Effect', 'HP Percentage', 'Pokeball Prob', 'Ultraball Prob', 'Heavyball Prob', 'Fastball Prob'])
         for pokemon in config:
-            current_pokemon = None
+            probs = []
             for ball in pokemon["pokeball"]:
-                probs = []
-                match pokemon.status_effect:
+                match pokemon["status_effect"]:
                     case 'NONE':
-                        current_pokemon = factory.create(pokemon["pokemon"], 100, StatusEffect.NONE, 1)
+                        current_pokemon = factory.create(pokemon["pokemon"], 100, StatusEffect.NONE, pokemon["hp_percentage"])
                     case 'FREEZE':
-                        current_pokemon = factory.create(pokemon["pokemon"], 100, StatusEffect.FREEZE, 1)
+                        current_pokemon = factory.create(pokemon["pokemon"], 100, StatusEffect.FREEZE, pokemon["hp_percentage"])
                     case 'POISON':
-                        current_pokemon = factory.create(pokemon["pokemon"], 100, StatusEffect.POISON, 1)
+                        current_pokemon = factory.create(pokemon["pokemon"], 100, StatusEffect.POISON, pokemon["hp_percentage"])
                     case 'BURN':
-                        current_pokemon = factory.create(pokemon["pokemon"], 100, StatusEffect.BURN, 1)
+                        current_pokemon = factory.create(pokemon["pokemon"], 100, StatusEffect.BURN, pokemon["hp_percentage"])
                     case 'PARALYSIS':
-                        current_pokemon = factory.create(pokemon["pokemon"], 100, StatusEffect.PARALYSIS, 1)
+                        current_pokemon = factory.create(pokemon["pokemon"], 100, StatusEffect.PARALYSIS, pokemon["hp_percentage"])
                     case 'SLEEP':
-                        current_pokemon = factory.create(pokemon["pokemon"], 100, StatusEffect.SLEEP, 1)
+                        current_pokemon = factory.create(pokemon["pokemon"], 100, StatusEffect.SLEEP, pokemon["hp_percentage"])
                     case _:
                         raise Exception(f'Unknown status effect {pokemon.status_effect}')
                 catched, prob = attempt_catch(current_pokemon, ball)
                 probs.append(prob)
-
-            writer.writerow([pokemon["status_effect"], *probs])
+            writer.writerow([pokemon["status_effect"], pokemon["hp_percentage"], *probs])
 
 
 if __name__ == "__main__":
     # ej1(1000)
     # plot_ej1a(FILENAME_EJ1)
     # plot_ej1b(FILENAME_EJ1)
+    #plot_ej1b(FILENAME_EJ1)
 
-    ej2a()
-    plot_ej2a(FILENAME_EJ2A)
+    #ej2a()
+    # plot_ej2a(FILENAME_EJ1A)
     # plot_ej2b(FILENAME_EJ2D)
 
     # ej2b()
     # plot_ej2b(FILENAME_EJ2B)
     # ej2c()
     # plot_ej2c(FILENAME_EJ2C)
+
+    ej2d()
+    plot_ej2d(f"{sys.argv[1]}".split("/")[1].split(".")[0] + ".csv")

@@ -1,0 +1,43 @@
+[
+   {
+    "pokemon": "onix",
+    "status_effect": "NONE",
+    "pokeball": ["pokeball", "ultraball", "fastball", "heavyball"],
+    "hp_percentage": 1
+  },
+  {
+    "pokemon": "onix",
+    "status_effect": "POISON",
+    "pokeball": ["pokeball", "ultraball", "fastball", "heavyball"],
+    "hp_percentage": 1
+  },
+  {
+    "pokemon": "onix",
+    "status_effect": "BURN",
+    "pokeball": ["pokeball", "ultraball", "fastball", "heavyball"],
+    "hp_percentage": 1
+  },
+  {
+    "pokemon": "onix",
+    "status_effect": "PARALYSIS",
+    "pokeball": ["pokeball", "ultraball", "fastball", "heavyball"],
+    "hp_percentage": 1
+  },
+  {
+    "pokemon": "onix",
+    "status_effect": "SLEEP",
+    "pokeball": ["pokeball", "ultraball", "fastball", "heavyball"],
+    "hp_percentage": 1
+  },
+  {
+    "pokemon": "onix",
+    "status_effect": "FREEZE",
+    "pokeball": [
+      "pokeball",
+      "ultraball",
+      "fastball",
+      "heavyball"
+    ],
+    "hp_percentage": 1
+  }
+]

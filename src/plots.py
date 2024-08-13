@@ -44,7 +44,7 @@ def plot_ej1b(filename):
     positions = [[0,0], [0,1], [0,2], [1,0], [1,1]]
     
     for i, row in df.iterrows():
-        axis = ax[*positions[i]]
+        axis = ax[positions[i]]
         
         pokeball_probability = row["pokeball"]
         ultraball_probability = row["ultraball"]
@@ -147,3 +147,39 @@ def plot_ej2c(filename):
     plt.xlabel('Nivel')
     plt.legend()
     plt.show()
+
+
+def plot_ej2d(filename):
+    df = pd.read_csv(filename)
+    status_effects = df['Status Effect']
+    balls = {
+        "Pokeball": df["Pokeball Prob"],
+        "Heavyball": df["Heavyball Prob"],
+        "Fastball": df["Fastball Prob"],
+        "Ultraball": df["Ultraball Prob"],
+    }
+
+    x = np.arange(len(status_effects))
+    width = 0.2
+    multiplier = 0
+    max_measurement = 0
+    _, ax = plt.subplots(layout="constrained")
+
+    for attribute, measurement in balls.items():
+        if measurement.max() > max_measurement:
+            max_measurement = measurement.max()
+        offset = width * multiplier
+        rects = ax.bar(x + offset, measurement, width, label=attribute)
+        ax.bar_label(rects, padding=4)
+        multiplier += 1
+
+    ax.axhline(y=max_measurement, color='k', linestyle='--')
+    ax.set_ylabel("Probabilidad de captura")
+    ax.set_xticks(x + 1.5 * width, status_effects.map(lambda x: x.lower().capitalize()))
+    ax.legend(loc="upper left", ncols=4)
+    ax.set_ylim(0, 1)
+    ax.set_yticks(np.arange(0, 1.1, 0.1))
+
+    plt.show()
+
+
