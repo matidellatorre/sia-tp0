@@ -5,14 +5,11 @@ import csv
 from src.catching import attempt_catch
 from src.pokemon import PokemonFactory, StatusEffect
 from src.plots import *
-import numpy as np
 
 FILENAME_EJ1 = "results/ej1.csv"
-FILENAME_EJ1A = 'results/ej1a.csv'
 FILENAME_EJ2A = 'results/ej2a.csv'
 FILENAME_EJ2B = 'results/ej2b.csv'
 FILENAME_EJ2C = 'results/ej2c.csv'
-FILENAME_EJ2D = 'ej2d.csv'
 
 
 def ej1(ball_throws=100):
@@ -33,6 +30,7 @@ def ej1(ball_throws=100):
                 probs.append(accumulated / ball_throws)
 
             writer.writerow([pokemon["pokemon"], *probs])  
+
 
 def get_pokemon_by_status_effect(factory, config, status_effect):
     match status_effect:
@@ -173,22 +171,25 @@ def ej2e():
 
 
 if __name__ == "__main__":
-    # ej1(1000)
+    # ej1()
     # plot_ej1a(FILENAME_EJ1)
-    # plot_ej1b(FILENAME_EJ1)
-    #plot_ej1b(FILENAME_EJ1)
 
-    #ej2a()
+    # ej1(1000)
+    # plot_ej1b(FILENAME_EJ1)
+
+    # ej2a()
     # plot_ej2a(FILENAME_EJ1A)
-    # plot_ej2b(FILENAME_EJ2D)
 
     # ej2b()
     # plot_ej2b(FILENAME_EJ2B)
+
     # ej2c()
     # plot_ej2c(FILENAME_EJ2C)
 
     # ej2d()
     # plot_ej2d(f"{sys.argv[1]}".split("/")[1].split(".")[0] + ".csv")
 
-    ej2e()
-    plot_ej2e(f"{sys.argv[1]}".split("/")[1].split(".")[0] + ".csv")
+    # ej2e()
+    # plot_ej2e(f"{sys.argv[1]}".split("/")[1].split(".")[0] + ".csv")
+
+    sys.exit(0)
