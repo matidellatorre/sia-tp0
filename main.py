@@ -142,6 +142,36 @@ def ej2d():
             writer.writerow([pokemon["status_effect"], pokemon["hp_percentage"], *probs])
 
 
+def ej2e():
+    factory = PokemonFactory("pokemon.json")
+    with open(f"{sys.argv[1]}", "r") as f, open(f"{sys.argv[1]}".split("/")[1].split(".")[0] + ".csv", mode='w', newline='') as output:
+        config = json.load(f)
+        writer = csv.writer(output)
+        writer.writerow(['Level', 'Status Effect', 'HP Percentage', 'Pokeball Prob', 'Ultraball Prob', 'Heavyball Prob', 'Fastball Prob'])
+        for pokemon in config:
+            probs = []
+            for ball in pokemon["pokeball"]:
+                print(pokemon["level"])
+                match pokemon["status_effect"]:
+                    case 'NONE':
+                        current_pokemon = factory.create(pokemon["pokemon"], pokemon["level"], StatusEffect.NONE, pokemon["hp_percentage"])
+                    case 'FREEZE':
+                        current_pokemon = factory.create(pokemon["pokemon"], pokemon["level"], StatusEffect.FREEZE, pokemon["hp_percentage"])
+                    case 'POISON':
+                        current_pokemon = factory.create(pokemon["pokemon"], pokemon["level"], StatusEffect.POISON, pokemon["hp_percentage"])
+                    case 'BURN':
+                        current_pokemon = factory.create(pokemon["pokemon"], pokemon["level"], StatusEffect.BURN, pokemon["hp_percentage"])
+                    case 'PARALYSIS':
+                        current_pokemon = factory.create(pokemon["pokemon"], pokemon["level"], StatusEffect.PARALYSIS, pokemon["hp_percentage"])
+                    case 'SLEEP':
+                        current_pokemon = factory.create(pokemon["pokemon"], pokemon["level"], StatusEffect.SLEEP, pokemon["hp_percentage"])
+                    case _:
+                        raise Exception(f'Unknown status effect {pokemon.status_effect}')
+                catched, prob = attempt_catch(current_pokemon, ball)
+                probs.append(prob)
+            writer.writerow([pokemon["level"], pokemon["status_effect"], pokemon["hp_percentage"], *probs])
+
+
 if __name__ == "__main__":
     # ej1(1000)
     # plot_ej1a(FILENAME_EJ1)
@@ -157,5 +187,8 @@ if __name__ == "__main__":
     # ej2c()
     # plot_ej2c(FILENAME_EJ2C)
 
-    ej2d()
-    plot_ej2d(f"{sys.argv[1]}".split("/")[1].split(".")[0] + ".csv")
+    # ej2d()
+    # plot_ej2d(f"{sys.argv[1]}".split("/")[1].split(".")[0] + ".csv")
+
+    ej2e()
+    plot_ej2e(f"{sys.argv[1]}".split("/")[1].split(".")[0] + ".csv")

@@ -1,0 +1,44 @@
+[
+  {
+    "pokemon": "mewtwo",
+    "status_effect": "NONE",
+    "pokeball": ["pokeball", "ultraball", "fastball", "heavyball"],
+    "hp_percentage": 0.25,
+    "level": 25
+  },
+  {
+    "pokemon": "mewtwo",
+    "status_effect": "POISON",
+    "pokeball": ["pokeball", "ultraball", "fastball", "heavyball"],
+    "hp_percentage": 0.25,
+    "level": 25
+  },
+  {
+    "pokemon": "mewtwo",
+    "status_effect": "BURN",
+    "pokeball": ["pokeball", "ultraball", "fastball", "heavyball"],
+    "hp_percentage": 0.25,
+    "level": 25
+  },
+  {
+    "pokemon": "mewtwo",
+    "status_effect": "PARALYSIS",
+    "pokeball": ["pokeball", "ultraball", "fastball", "heavyball"],
+    "hp_percentage": 0.25,
+    "level": 25
+  },
+  {
+    "pokemon": "mewtwo",
+    "status_effect": "SLEEP",
+    "pokeball": ["pokeball", "ultraball", "fastball", "heavyball"],
+    "hp_percentage": 0.25,
+    "level": 25
+  },
+  {
+    "pokemon": "mewtwo",
+    "status_effect": "FREEZE",
+    "pokeball": ["pokeball", "ultraball", "fastball", "heavyball"],
+    "hp_percentage": 0.25,
+    "level": 25
+  }
+]
