@@ -72,24 +72,24 @@ def plot_ej1b(filename):
     
 def plot_ej2a(filename):
     df = pd.read_csv(filename)
-    catch_rates_pokeball = df['catch_rate_pokeball']
+    catch_rate_pokeball = df['catch_rate_pokeball']
     catch_rate_ultraball = df['catch_rate_ultraball']
     catch_rate_fastball = df['catch_rate_fastball']
     catch_rate_heavyball = df['catch_rate_heavyball']
 
     hps = df['hp']
     
-    
+
     plt.figure(figsize=(10, 6))
 
+    plt.scatter(hps, catch_rate_pokeball, color='red', marker='o', label='Pokeball')
+    plt.plot(hps, catch_rate_pokeball, color='red')
     plt.scatter(hps, catch_rate_fastball, color='orange', marker='s', label='Fastball')
     plt.plot(hps, catch_rate_fastball, color='orange')
-    plt.scatter(hps, catch_rates_pokeball, color='red', marker='o', label='Pokeball')
-    plt.plot(hps, catch_rates_pokeball, color='red')
     plt.scatter(hps, catch_rate_ultraball, color='blue', marker='x', label='Ultraball')
-    plt.plot(hps, catch_rates_pokeball, color='red')
+    plt.plot(hps, catch_rate_ultraball, color='blue')
     plt.scatter(hps, catch_rate_heavyball, color='green', marker='+', label='Heavyball')
-    plt.plot(hps, catch_rates_pokeball, color='red')
+    plt.plot(hps, catch_rate_heavyball, color='green')
 
 
     plt.title('Salud vs probabilidad de captura')
@@ -98,4 +98,56 @@ def plot_ej2a(filename):
 
     plt.legend()
 
+    plt.show()
+
+def plot_ej2b(filename):
+    df = pd.read_csv(filename)
+    catch_rate_pokeball = df['catch_rate_pokeball']
+    catch_rate_ultraball = df['catch_rate_ultraball']
+    catch_rate_fastball = df['catch_rate_fastball']
+    catch_rate_heavyball = df['catch_rate_heavyball']
+
+    hps = df['hp']
+    
+    plt.figure(figsize=(10, 6))
+
+    plt.scatter(hps, catch_rate_pokeball, color='red', marker='o', label='Pokeball')
+    plt.plot(hps, catch_rate_pokeball, color='red')
+    plt.scatter(hps, catch_rate_fastball, color='orange', marker='s', label='Fastball')
+    plt.plot(hps, catch_rate_fastball, color='orange')
+    plt.scatter(hps, catch_rate_ultraball, color='blue', marker='x', label='Ultraball')
+    plt.plot(hps, catch_rate_ultraball, color='blue')
+    plt.scatter(hps, catch_rate_heavyball, color='green', marker='+', label='Heavyball')
+    plt.plot(hps, catch_rate_heavyball, color='green')
+
+    plt.title('Salud vs P. de captura')
+    plt.ylabel('Probabilidad de captura')
+    plt.xlabel('Salud')
+    plt.legend()
+    plt.show()
+
+def plot_ej2c(filename):
+    df = pd.read_csv(filename)
+    catch_rate_pokeball = df['catch_rate_pokeball']
+    catch_rate_ultraball = df['catch_rate_ultraball']
+    catch_rate_fastball = df['catch_rate_fastball']
+    catch_rate_heavyball = df['catch_rate_heavyball']
+
+    lvls = df['lvl']
+    
+    plt.figure(figsize=(10, 6))
+
+    plt.scatter(lvls, catch_rate_pokeball, color='red', marker='o', label='Pokeball')
+    plt.plot(lvls, catch_rate_pokeball, color='red')
+    plt.scatter(lvls, catch_rate_fastball, color='orange', marker='s', label='Fastball')
+    plt.plot(lvls, catch_rate_fastball, color='orange')
+    plt.scatter(lvls, catch_rate_ultraball, color='blue', marker='x', label='Ultraball')
+    plt.plot(lvls, catch_rate_ultraball, color='blue')
+    plt.scatter(lvls, catch_rate_heavyball, color='green', marker='+', label='Heavyball')
+    plt.plot(lvls, catch_rate_heavyball, color='green')
+
+    plt.title('Nivel vs P. de captura')
+    plt.ylabel('Probabilidad de captura')
+    plt.xlabel('Nivel')
+    plt.legend()
     plt.show()

@@ -11,6 +11,8 @@ FILENAME_EJ2D = 'ej2d.csv'
 FILENAME_EJ1 = "results/ej1.csv"
 FILENAME_EJ1A = 'ej1a.csv'
 FILENAME_EJ2A = 'ej2a.csv'
+FILENAME_EJ2B = 'results/ej2b.csv'
+FILENAME_EJ2C = 'results/ej2c.csv'
 
 
 def ej1(ball_throws=100):
@@ -57,6 +59,48 @@ def ej2a():
             
             writer.writerow([hp, *catched_rates_list])
 
+def ej2b():
+    factory = PokemonFactory("pokemon.json")
+    with open(f"{sys.argv[1]}", "r") as f, open(FILENAME_EJ2B, mode='w', newline='') as output:
+        config = json.load(f)
+        writer = csv.writer(output)
+        balls = config["pokeballs"]
+        catch_rate_names = list(map(lambda x : 'catch_rate_'+x, balls))
+        writer.writerow(['hp', *catch_rate_names ])
+        
+        for hp in range(100, 0, -1):
+            pokemon = factory.create(config["pokemon"], 100, StatusEffect.NONE, hp/100)
+            catched_rates_list = []
+            for ball in balls:
+                accumulated = 0
+                for i in range(100):
+                    catched, _prob = attempt_catch(pokemon, ball)
+                    if catched:
+                        accumulated += 1
+                catched_rates_list.append(accumulated/100)
+            writer.writerow([hp, *catched_rates_list])
+
+def ej2c():
+    factory = PokemonFactory("pokemon.json")
+    with open(f"{sys.argv[1]}", "r") as f, open(FILENAME_EJ2C, mode='w', newline='') as output:
+        config = json.load(f)
+        writer = csv.writer(output)
+        balls = config["pokeballs"]
+        catch_rate_names = list(map(lambda x : 'catch_rate_'+x, balls))
+        writer.writerow(['lvl', *catch_rate_names ])
+        
+        for lvl in range(100, 0, -1):
+            pokemon = factory.create(config["pokemon"], lvl, StatusEffect.NONE, 1)
+            catched_rates_list = []
+            for ball in balls:
+                accumulated = 0
+                for i in range(100):
+                    catched, _prob = attempt_catch(pokemon, ball)
+                    if catched:
+                        accumulated += 1
+                catched_rates_list.append(accumulated/100)
+            writer.writerow([lvl, *catched_rates_list])
+
 def ej2d():
     factory = PokemonFactory("pokemon.json")
     with open(f"{sys.argv[1]}", "r") as f, open(FILENAME_EJ2D, mode='w', newline='') as output:
@@ -91,4 +135,12 @@ def ej2d():
 if __name__ == "__main__":
     # ej1(1000)
     # plot_ej1a(FILENAME_EJ1)
-    plot_ej1b(FILENAME_EJ1)
+    # plot_ej1b(FILENAME_EJ1)
+
+    ej2a()
+    plot_ej2a(FILENAME_EJ2A)
+
+    # ej2b()
+    # plot_ej2b(FILENAME_EJ2B)
+    # ej2c()
+    # plot_ej2c(FILENAME_EJ2C)
