@@ -178,7 +178,7 @@ if __name__ == "__main__":
     # plot_ej1b(FILENAME_EJ1)
 
     # ej2a()
-    # plot_ej2a(FILENAME_EJ1A)
+    # plot_ej2a(FILENAME_EJ2A)
 
     # ej2b()
     # plot_ej2b(FILENAME_EJ2B)

@@ -44,7 +44,7 @@ def plot_ej1b(filename):
     positions = [[0,0], [0,1], [0,2], [1,0], [1,1]]
     
     for i, row in df.iterrows():
-        axis = ax[positions[i]]
+        axis = ax[*positions[i]]
         
         pokeball_probability = row["pokeball"]
         ultraball_probability = row["ultraball"]
@@ -69,6 +69,8 @@ def plot_ej1b(filename):
         axis.set_xticks([])
         
     fig.delaxes(ax[1, 2])
+    plt.show()
+
     
 def plot_ej2a(filename):
     df = pd.read_csv(filename)
@@ -88,13 +90,12 @@ def plot_ej2a(filename):
     ax.bar(x + 3 * width, normalize(df['FREEZE']), width, label='FREEZE', color='cyan')
     
     ax.axhline(y=1, color='k', linestyle='--')
-    ax.set_xlabel('Pokéball')
-    ax.set_ylabel('Probabilidad de captura (relativa a la pokeball)')
-    ax.set_title('Probabilidad de captura según el estado del Pokémon y la Pokébola')
+    ax.set_ylabel('Probabilidad de captura comparado con Pokeball')
     ax.set_xticks(x)
     ax.set_xticklabels(df['ball'][1:])
     ax.legend()
     plt.show()
+
 
 def plot_ej2b(filename):
     df = pd.read_csv(filename)
@@ -116,7 +117,6 @@ def plot_ej2b(filename):
     plt.scatter(hps, catch_rate_heavyball, color='green',label='Heavyball')
     plt.plot(hps, catch_rate_heavyball, color='green')
 
-    plt.title('Salud vs P. de captura')
     plt.ylabel('Probabilidad de captura')
     plt.xlabel('Salud')
     plt.legend()
@@ -142,7 +142,6 @@ def plot_ej2c(filename):
     plt.scatter(lvls, catch_rate_heavyball, color='green', marker='+', label='Heavyball')
     plt.plot(lvls, catch_rate_heavyball, color='green')
 
-    plt.title('Nivel vs P. de captura')
     plt.ylabel('Probabilidad de captura')
     plt.xlabel('Nivel')
     plt.legend()
