@@ -56,9 +56,12 @@ def plot_ej1b(filename):
             "Heavyball": heavyball_probability / pokeball_probability,
             "Fastball": fastball_probability / pokeball_probability
         }
+
+        colors = ["red", "orange", "green"]
+        
         
         for j, (ball, probability) in enumerate(balls.items()):
-            rect = axis.bar(j + 1, probability, label=ball)
+            rect = axis.bar(j + 1, probability, label=ball, color=colors[j])
             axis.bar_label(rect, padding=2)
             axis.axhline(y=1, color='k', linestyle='--')
 
